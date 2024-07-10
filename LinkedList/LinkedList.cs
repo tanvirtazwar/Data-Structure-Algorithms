@@ -593,14 +593,14 @@ public class LinkedList
         {
             return;
         }
-        Node sortedListHead = head;
-        Node unsortedListHead = sortedListHead.next;
+        Node sortedListtail = head;
+        Node unsortedListHead = sortedListtail.next;
 
         while (unsortedListHead != null)
         {
-            if (sortedListHead.value > unsortedListHead.value)
+            if (sortedListtail.value > unsortedListHead.value)
             {
-                sortedListHead.next = unsortedListHead.next;
+                sortedListtail.next = unsortedListHead.next;
                 Node searchPointer = head;
                 Node prePointer = new Node(0);
                 unsortedListHead.next = searchPointer;
@@ -616,11 +616,11 @@ public class LinkedList
                 {
                     head = unsortedListHead;
                 }
-                unsortedListHead = sortedListHead.next;
+                unsortedListHead = sortedListtail.next;
             }
             else
             {
-                sortedListHead = unsortedListHead;
+                sortedListtail = unsortedListHead;
                 unsortedListHead = unsortedListHead.next;
             }
         }
@@ -706,5 +706,68 @@ public class LinkedList
 
         head = dummy.next;
         tail = current;
+    }
+
+    public Node MergeTwoLists(Node list1, Node list2)
+    {
+        Node dummy = new Node(0);
+        Node current = dummy;
+
+        while (list1 != null && list2 != null)
+        {
+            if (list1.value < list2.value)
+            {
+                current.next = new Node(list1.value);
+                current = current.next;
+                list1 = list1.next;
+            }
+            else
+            {
+                current.next = new Node(list2.value);
+                current = current.next;
+                list2 = list2.next;
+            }
+        }
+        while (list1 != null)
+        {
+            current.next = new Node(list1.value);
+            current = current.next;
+            list1 = list1.next;
+        }
+        while (list2 != null)
+        {
+            current.next = new Node(list2.value);
+            current = current.next;
+            list2 = list2.next;
+        }
+
+        return dummy.next;
+    }
+
+    public Node MergeSort(Node node)
+    {
+        if (node == null || node.next == null)
+            return node;
+
+        Node pre = null, slow = node, fast = node;
+
+        while (fast != null && fast.next != null)
+        {
+            pre = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        pre.next = null;
+
+        Node list1 = MergeSort(node);
+        Node list2 = MergeSort(slow);
+
+        return MergeTwoLists(list1, list2);
+    }
+
+    public void MergeSort()
+    {
+        MergeSort(head);
     }
 }
