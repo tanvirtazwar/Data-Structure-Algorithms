@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stack", "..\Stack\Stack.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue", "..\Queue\Queue.csproj", "{D8716409-B040-47E7-B743-A1AF7082B03C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackQueueArrayList", "..\StackQueueArrayList\StackQueueArrayList.csproj", "{0A2CBE71-CC9E-427D-AB64-0EACD85BE3AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStackQueueArrayList", "..\StackQueueArrayList\MyStackQueueArrayList.csproj", "{0A2CBE71-CC9E-427D-AB64-0EACD85BE3AE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinarySearchTree", "..\BinarySearchTree\BinarySearchTree.csproj", "{C6155CE3-D111-4AED-9FD0-773576C2518A}"
 EndProject
@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heap", "..\Heap\Heap.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic_Sorts", "..\Basic_Sorts\Basic_Sorts.csproj", "{81551E8E-2189-4E4D-A247-C27DC8B9BDAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dynamic_Programming", "..\Dynamic_Programming\Dynamic_Programming.csproj", "{E9D84881-1002-4297-A31B-61CE0CBDBC18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dynamic_Programming", "..\Dynamic_Programming\Dynamic_Programming.csproj", "{E9D84881-1002-4297-A31B-61CE0CBDBC18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
