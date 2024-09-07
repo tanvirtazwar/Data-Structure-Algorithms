@@ -5,10 +5,15 @@
         private Node top;
         private int height;
 
-        public class Node(int value)
+        public class Node
         {
-            public int value = value;
+            public int value;
             public Node next;
+
+            public Node(int value)
+            {
+                this.value = value;
+            }
         }
 
         public Stack(int value)
