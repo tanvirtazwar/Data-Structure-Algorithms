@@ -1,138 +1,130 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Heap;
 
-namespace Heap
+public class Heap
 {
-    public class Heap
+    private readonly List<int> heap = [];
+    private static int LeftChild(int index)
     {
-        private List<int> heap = [];
-        private int leftChild(int index)
+        return (2 * index + 1);
+    }
+    private static int RightChild(int index)
+    {
+        return (2 * index + 2);
+    }
+    private static int Parent(int index)
+    {
+        return ((index - 1) / 2);
+    }
+    private void Swap(int index1, int index2)
+    {
+        (heap[index1], heap[index2]) = (heap[index2], heap[index1]);
+    }
+    private void SinkDown(int index)
+    {
+        var maxIndex = index;
+        while (true)
         {
-            return (2 * index + 1);
-        }
-        private int rightChild(int index)
-        {
-            return (2 * index + 2);
-        }
-        private int parent(int index)
-        {
-            return ((index - 1) / 2);
-        }
-        private void swap(int index1, int index2)
-        {
-            int temp = heap[index1];
-            heap[index1] = heap[index2];
-            heap[index2] = temp;
-        }
-        private void sinkDown(int index)
-        {
-            int maxIndex = index;
-            while (true)
+            var leftIndex = LeftChild(index);
+            var rightIndex = RightChild(index);
+
+            if (leftIndex < heap.Count &&
+                heap[leftIndex] > heap[maxIndex])
             {
-                int leftIndex = leftChild(index);
-                int rightIndex = rightChild(index);
+                maxIndex = leftIndex;
+            }
 
-                if (leftIndex < heap.Count &&
-                    heap[leftIndex] > heap[maxIndex])
-                {
-                    maxIndex = leftIndex;
-                }
+            if (rightIndex < heap.Count && 
+                heap[rightIndex] > heap[maxIndex])
+            {
+                maxIndex = rightIndex;
+            }
 
-                if (rightIndex < heap.Count && 
-                    heap[rightIndex] > heap[maxIndex])
-                {
-                    maxIndex = rightIndex;
-                }
-
-                if(maxIndex != index)
-                {
-                    swap(maxIndex, index);
-                    index = maxIndex;
-                }
-                else
-                {
-                    return;
-                }
+            if(maxIndex != index)
+            {
+                Swap(maxIndex, index);
+                index = maxIndex;
+            }
+            else
+            {
+                return;
             }
         }
-        public List<int> getHeap()
+    }
+
+    private List<int> GetHeap()
+    {
+        return heap;
+    }
+    public void PrintHeap()
+    {
+        Console.WriteLine("Heap List:");
+        foreach (var i in heap)
         {
-            return heap;
+            Console.WriteLine(i);
         }
-        public void printHeap()
+        Console.WriteLine("\n");
+    }
+    public void Insert(int value)
+    {
+        heap.Add(value);
+        var current = heap.Count - 1;
+        while (current > 0 && heap[current] > heap[Parent(current)])
         {
-            Console.WriteLine("Heap List:");
-            foreach (int i in heap)
-            {
-                Console.WriteLine(i);
-            }
-            Console.WriteLine("\n");
+            Swap(current, Parent(current));
+            current = Parent(current);
         }
-        public void insert(int value)
+    }
+    public int? Remove()
+    {
+        switch (heap.Count)
         {
-            heap.Add(value);
-            int current = heap.Count - 1;
-            while (current > 0 && heap[current] > heap[parent(current)])
-            {
-                swap(current, parent(current));
-                current = parent(current);
-            }
-        }
-        public int? remove()
-        {
-            if (heap.Count == 0)
-            {
+            case 0:
                 return null;
-            }
-
-            if (heap.Count == 1)
+            case 1:
             {
-                int temp = heap[0];
+                var temp = heap[0];
                 heap.RemoveAt(0);
                 return temp;
             }
-
-            int maxValue = heap[0];
-            heap[0] = heap[heap.Count - 1];
-            heap.RemoveAt(heap.Count - 1);
-            sinkDown(0);
-
-            return maxValue;
         }
 
+        var maxValue = heap[0];
+        heap[0] = heap[^1];
+        heap.RemoveAt(heap.Count - 1);
+        SinkDown(0);
 
-        // This method returns k th smallest element in an array 
-        public static int? findKthSmallest(int[] nums, int k)
-        {
-            Heap heap = new Heap();
-            foreach (var num in nums)
-            {
-                heap.insert(num);
-            }
-            for (int i = 0; i < (nums.Length - k); i++)
-            {
-                heap.remove();
-            }
-            return heap.remove();
-        }
-
-        public static List<int> streamMax(int[] nums)
-        {
-            Heap maxHeap = new Heap();
-            List<int> maxStream = new List<int>();
-
-            foreach (var num in nums)
-            {
-                maxHeap.insert(num);
-                // The heap's root is always the maximum, so we add it to the result list
-                maxStream.Add(maxHeap.getHeap()[0]);
-            }
-
-            return maxStream;
-        }
-
+        return maxValue;
     }
+
+
+    // This method returns k th the smallest element in an array 
+    public static int? FindKthSmallest(int[] nums, int k)
+    {
+        var heap = new Heap();
+        foreach (var num in nums)
+        {
+            heap.Insert(num);
+        }
+        for (var i = 0; i < (nums.Length - k); i++)
+        {
+            heap.Remove();
+        }
+        return heap.Remove();
+    }
+
+    public static List<int> StreamMax(int[] nums)
+    {
+        var maxHeap = new Heap();
+        var maxStream = new List<int>();
+
+        foreach (var num in nums)
+        {
+            maxHeap.Insert(num);
+            // The heap's root is always the maximum, so we add it to the result list
+            maxStream.Add(maxHeap.GetHeap()[0]);
+        }
+
+        return maxStream;
+    }
+
 }

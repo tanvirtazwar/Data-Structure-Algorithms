@@ -68,9 +68,7 @@ namespace Basic_Sorts
                 {
                     if (array[j] > array[j + 1])
                     {
-                        int temp = array[j];
-                        array[j] = array[j + 1];
-                        array[j + 1] = temp;
+                        (array[j], array[j + 1]) = (array[j + 1], array[j]);
                     }
                 }
             }
@@ -91,9 +89,7 @@ namespace Basic_Sorts
 
                 if (minIndex != i)
                 {
-                    int temp = array[i];
-                    array[i] = array[minIndex];
-                    array[minIndex] = temp;
+                    (array[i], array[minIndex]) = (array[minIndex], array[i]);
                 }
             }
         }
@@ -107,9 +103,7 @@ namespace Basic_Sorts
                 {
                     if (array[j] > array[insertIndex])
                     {
-                        int temp = array[j];
-                        array[j] = array[insertIndex];
-                        array[insertIndex] = temp;
+                        (array[j], array[insertIndex]) = (array[insertIndex], array[j]);
                         insertIndex = j;
                     }
                 }
@@ -189,9 +183,7 @@ namespace Basic_Sorts
 
         private static void Swap(int[] array, int firstIndex, int secondIndex)
         {
-            int temp = array[firstIndex];
-            array[firstIndex] = array[secondIndex];
-            array[secondIndex] = temp;
+            (array[firstIndex], array[secondIndex]) = (array[secondIndex], array[firstIndex]);
         }
 
         private static int Pivot(int[] array, int pivotIndex, int endIndex)
